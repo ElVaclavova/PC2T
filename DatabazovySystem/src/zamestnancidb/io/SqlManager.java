@@ -8,6 +8,13 @@ public class SqlManager {
     private static final String DB_URL = "jdbc:sqlite:employees_backup.db";
 
     public static void inicializuj() {
+    	try {
+            Class.forName("org.sqlite.JDBC");
+        } catch (ClassNotFoundException e) {
+            System.err.println("Kritická chyba: Knihovna sqlite-jdbc nebyla nalezena!");
+            return;
+        }
+
         try (Connection conn = DriverManager.getConnection(DB_URL);
              Statement stmt = conn.createStatement()) {
             
