@@ -1,6 +1,8 @@
 package zamestnancidb.model;
 
-public class Collaboration {
+import java.io.Serializable;
+
+public class Collaboration implements Serializable {
 
     private final int partnerID;
     private CollaborationQuality quality;

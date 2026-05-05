@@ -9,7 +9,11 @@ import java.util.*;
 public class Menu {
 
     private final Scanner sc = new Scanner(System.in);
-    private final EmployeeDatabase db = new EmployeeDatabase();
+    private final EmployeeDatabase db;
+    
+    public Menu(EmployeeDatabase db) {
+        this.db = db;
+    }
 
     private static final String DEFAULT_FILE = "employees.txt";
 
@@ -91,7 +95,7 @@ public class Menu {
     private void addCollaboration() {
         System.out.print("ID zamestnanca: ");
         int id1 = readInt();
-        System.out.print("ID kolegu: ");
+        System.out.print("ID kolega: ");
         int id2 = readInt();
 
         System.out.println("Úroveň spolupráce:");
@@ -213,26 +217,32 @@ public class Menu {
     }
 
     private void saveToFile() {
-        System.out.print("Názov súboru [" + DEFAULT_FILE + "]: ");
+        System.out.print("Zadejte ID zaměstnance pro uložení: ");
+        int id = readInt();
+        Employee e = db.findById(id);
+        if (e == null) {
+            System.out.println("Zaměstnanec nenalezen.\n");
+            return;
+        }
+        System.out.print("Název souboru ve formatu (neco.dat): ");
         String name = sc.nextLine().trim();
-        if (name.isEmpty()) name = DEFAULT_FILE;
         try {
-            FileManager.saveToFile(db, name);
-            System.out.println("Uložené do: " + name + "\n");
+            FileManager.saveSingleEmployee(e, name);
+            System.out.println("Zaměstnanec uložený.\n");
         } catch (Exception ex) {
-            System.out.println("Chyba pri ukladaní: " + ex.getMessage() + "\n");
+            System.out.println("Chyba: " + ex.getMessage() + "\n");
         }
     }
 
     private void loadFromFile() {
-        System.out.print("Názov súboru [" + DEFAULT_FILE + "]: ");
+        System.out.print("Název souboru pro načtení: ");
         String name = sc.nextLine().trim();
-        if (name.isEmpty()) name = DEFAULT_FILE;
         try {
-            FileManager.loadFromFile(db, name);
-            System.out.println("Načítané z: " + name + "\n");
+            Employee e = FileManager.loadSingleEmployee(name);
+            db.addEmployee(e);
+            System.out.println("Zaměstnance " + e.getLastName() + " načítání do DB.\n");
         } catch (Exception ex) {
-            System.out.println("Chyba pri načítaní: " + ex.getMessage() + "\n");
+            System.out.println("Chyba: " + ex.getMessage() + "\n");
         }
     }
 

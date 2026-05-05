@@ -1,16 +1,17 @@
 package zamestnancidb.model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class DataAnalyst extends Employee {
+public class DataAnalyst extends Employee implements Serializable {
 
-	public DataAnalyst(String lastName, String firtName, int yearBirth) {
-		super(lastName, firtName, yearBirth);
-    }
+	public DataAnalyst(String firstName, String lastName, int yearBirth) {
+	    super(firstName, lastName, yearBirth);
+	}
 
-    public DataAnalyst(int ID, String lastName, String firstName, int yearBirth) {
-        super(ID, lastName, firstName, yearBirth);
-    }
+	public DataAnalyst(int ID, String firstName, String lastName, int yearBirth) {
+	    super(ID, firstName, lastName, yearBirth);
+	}
 
     @Override
     public String getGroupName() {

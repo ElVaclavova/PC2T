@@ -1,9 +1,10 @@
 package zamestnancidb.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Employee {
+public abstract class Employee implements Serializable {
 	
 	private static int ID_COUNTER= 1;
 	private final int ID;
@@ -14,6 +15,7 @@ public abstract class Employee {
 	
 	public Employee(String firstName, String lastName, int yearBirth) {
 		this.ID = ID_COUNTER++;
+		this.firstName = firstName;
 		this.lastName = lastName;
 		this.yearBirth = yearBirth;
 		this.collaborations = new ArrayList<>();

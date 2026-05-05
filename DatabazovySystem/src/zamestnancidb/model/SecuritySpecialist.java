@@ -1,9 +1,11 @@
 package zamestnancidb.model;
 
-public class SecuritySpecialist extends Employee{
+import java.io.Serializable;
+
+public class SecuritySpecialist extends Employee implements Serializable {
 	
-	public SecuritySpecialist(String lastName, String firstName, int yearBirth) {
-		super(lastName, firstName, yearBirth);
+	public SecuritySpecialist(String firstName, String lastName, int yearBirth) {
+	    super(firstName, lastName, yearBirth);
 	}
 	
 	public SecuritySpecialist(int ID, String firstName, String lastName, int yearBirth) {
